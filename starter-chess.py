@@ -228,33 +228,6 @@ def gagnantEnnemiAlphaBeta(b, limit, alpha, beta, niv=1):
         return beta
 
 
-def matchEnemiAvecCoupe(b, limit):
-    print("----------")
-    print(b)
-    if b.is_game_over():
-        print("Resultat : ", b.result())
-        return
-    b.push(randomMove(b))
-    match_Ami(b, limit)
-    b.pop()
-
-
-def matchAmiAvecCoupe(b,limit):
-    print("----------")
-    print(b)
-    if b.is_game_over():
-        print("Resultat : ", b.result())
-        return
-    b.push(gagnantAmiAvecCoupe(b,limit))
-    match_Enemi(b, limit)
-    b.pop()
-
-
-def matchAvecCoupe(b, limit):
-    matchAmiAvecCoupe(b,limit)
-
-#matchAvecCoupe(board,1)
-
 
 #--------testing time taken for research---------------
 '''
