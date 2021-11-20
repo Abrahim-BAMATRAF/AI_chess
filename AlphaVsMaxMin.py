@@ -1,3 +1,8 @@
+from alpha import gagnantAmiAlphaBeta_user
+from maxMin import gagnantAmi
+from starterChess import randomMove
+
+
 def matchMaxMin(b, limit,MaxMinLastMove, AlphaLastMove, counterMaxMin=0, counterAlpha=0):
     print("----------")
     print(b)

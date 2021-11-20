@@ -1,8 +1,11 @@
+import time
+
 from heuristique import *
+from starterChess import randomMove
 
 
 def gagnantAmiAlphaBetaWithTime_user(b, limit, timeLimit=10):
-    white, black = get_piece(board)
+    white, black = get_piece(b)
     whitePawns = getWhitePawns(b)
     blackPawns = getBlackPawns(b)
     if b.turn:
@@ -13,12 +16,19 @@ def gagnantAmiAlphaBetaWithTime_user(b, limit, timeLimit=10):
         beta = -1 * (calculate_score(white) + scoreWhitePawns(whitePawns))
     return gagnantAmiAlphaBetaWithTime(b, limit, alpha, beta, timeLimit)
 
+
+start = time.time()
+
+
 def gagnantAmiAlphaBetaWithTime(b, limit, alpha, beta, timeLimit, niv=1):
     bestMove = None
     global start
     end = time.time()
-    if end - start >= timeLimit:
-        return heuristique(b)
+    if (end - start) >= timeLimit:
+        if niv == 1:
+            return randomMove(b)
+        else:
+            return heuristique(b)
     if b.is_game_over():
         return heuristique(b)
     if limit == 1:
@@ -38,15 +48,14 @@ def gagnantAmiAlphaBetaWithTime(b, limit, alpha, beta, timeLimit, niv=1):
     else:
         for move in b.generate_legal_moves():
             b.push(move)
-            alpha = max(alpha,gagnantEnnemiAlphaBetaWithTime(b, limit, alpha, beta, timeLimit, niv + 1))
+            alpha = max(alpha, gagnantEnnemiAlphaBetaWithTime(b, limit, alpha, beta, timeLimit, niv + 1))
             b.pop()
-            if (alpha >= beta):
+            if alpha >= beta:
                 return beta
         return alpha
 
 
 def gagnantEnnemiAlphaBetaWithTime(b, limit, alpha, beta, timeLimit, niv=1):
-
     if b.is_game_over():
         return heuristique(b)
     if niv == limit:
@@ -54,17 +63,14 @@ def gagnantEnnemiAlphaBetaWithTime(b, limit, alpha, beta, timeLimit, niv=1):
     else:
         for move in b.generate_legal_moves():
             b.push(move)
-            beta = min(beta,gagnantAmiAlphaBetaWithTime(b, limit, alpha, beta, timeLimit, niv + 1))
+            beta = min(beta, gagnantAmiAlphaBetaWithTime(b, limit, alpha, beta, timeLimit, niv + 1))
             b.pop()
-            if alpha >= beta :
+            if alpha >= beta:
                 return alpha
         return beta
 
-#------testing-----
+
+# ------testing-----
 '''
-start_test = time.time()
-start = time.time()
-print(gagnantAmiAlphaBetaWithTime_user(board,5,0.008))
-end_test = time.time()
-print("the time of gagnantAmiAvecCoupe : " , end_test - start_test)
+
 '''

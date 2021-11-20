@@ -4,10 +4,12 @@ implementing alpha beta method
 '''
 
 from heuristique import *
+from starterChess import randomMove
 
-#role: calculate alpha and beta then calls gagnantAmiAlphaBeta
+
+# role: calculate alpha and beta then calls gagnantAmiAlphaBeta
 def gagnantAmiAlphaBeta_user(b, limit):
-    white, black = get_piece(board)
+    white, black = get_piece(b)
     whitePawns = getWhitePawns(b)
     blackPawns = getBlackPawns(b)
     if b.turn:
@@ -40,15 +42,14 @@ def gagnantAmiAlphaBeta(b, limit, alpha, beta, niv=1):
     else:
         for move in b.generate_legal_moves():
             b.push(move)
-            alpha = max(alpha,gagnantEnnemiAlphaBeta(b, limit, alpha, beta, niv + 1))
+            alpha = max(alpha, gagnantEnnemiAlphaBeta(b, limit, alpha, beta, niv + 1))
             b.pop()
-            if (alpha >= beta):
+            if alpha >= beta:
                 return beta
         return alpha
 
 
 def gagnantEnnemiAlphaBeta(b, limit, alpha, beta, niv=1):
-
     if b.is_game_over():
         return heuristique(b)
     if niv == limit:
@@ -56,8 +57,8 @@ def gagnantEnnemiAlphaBeta(b, limit, alpha, beta, niv=1):
     else:
         for move in b.generate_legal_moves():
             b.push(move)
-            beta = min(beta,gagnantAmiAlphaBeta(b, limit, alpha, beta, niv + 1))
+            beta = min(beta, gagnantAmiAlphaBeta(b, limit, alpha, beta, niv + 1))
             b.pop()
-            if alpha >= beta :
+            if alpha >= beta:
                 return alpha
         return beta
