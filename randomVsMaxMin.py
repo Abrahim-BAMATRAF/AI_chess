@@ -2,11 +2,16 @@
 party 2 - E3
 creating match between MaxMin and randomMove
 """
-
 from maxMin import gagnantAmi
 from starterChess import randomMove
 
-
+'''
+role: plays the role of random in the match
+input: b: the chess board ; limit: the limit of the depth;
+        MaxMinLastMove: the move made by maxmin in the turn before the last turn
+        counterMaxMin : a counter used to only memorise one move of maxmin each two turns
+output: void , calls match_Ami to give the turn to maxmin
+'''
 def match_Enemi(b, limit, MaxMinLastMove, counterMaxMin):
     print("----------")
     print(b)
@@ -18,6 +23,13 @@ def match_Enemi(b, limit, MaxMinLastMove, counterMaxMin):
     b.pop()
 
 
+'''
+role: plays the role of maxmin in the match
+input: b: the chess board ; limit: the limit of the depth;
+        MaxMinLastMove: the move made by maxmin in the turn before the last turn
+        counterMaxMin : a counter used to only memorise one move of maxmin each two turns
+output: void , calls match_Enemi to give the turn to maxmin
+'''
 def match_Ami(b, limit, MaxMinLastMove, counterMaxMin=0):
     print("----------")
     print(b)
@@ -35,6 +47,11 @@ def match_Ami(b, limit, MaxMinLastMove, counterMaxMin=0):
     b.pop()
 
 
+'''
+role: starts the match by giving the turn two maxmin
+input: b: the chess board ; limit: the limit of the depth;
+output: void , calls match_Ami to give the turn to maxmin
+'''
 def matchRandomVsMaxMin(b, limit):
     match_Ami(b, limit, None)
 

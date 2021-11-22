@@ -3,10 +3,14 @@ party 3 - E3
 create a method to allow the user to play against alpha
 """
 import chess
-
 from alpha import gagnantAmiAlphaBeta_user
 
 
+'''
+role : reads a move given by the user
+input: b: the board
+output : the move
+'''
 def getMove(b):
     print("choose on of the legal moves")
     print("legal moves")
@@ -20,6 +24,13 @@ def getMove(b):
 
 
 # ---------human vs Alpha------------------
+'''
+role: plays the turn of the human
+input: b: the chess board ; limit: the limit of the depth;
+        AlphaLastMove: the move made by alpha in the turn before the last turn
+        counterAlpha : a counter used to only memorise one move of alpha each two turns
+output: void , calls matchHumanVsAlpha_alpha to give the turn to alpha
+'''
 def matchHumanVsAlpha_human(b, limit, AlphaLastMove, counterAlpha=0):
     print("----------")
     print(b)
@@ -32,6 +43,13 @@ def matchHumanVsAlpha_human(b, limit, AlphaLastMove, counterAlpha=0):
     b.pop()
 
 
+'''
+role: plays the turn of the AI using alpha
+input: b: the chess board ; limit: the limit of the depth;
+        AlphaLastMove: the move made by alpha in the turn before the last turn
+        counterAlpha : a counter used to only memorise one move of alpha each two turns
+output: void , calls matchHumanVsAlpha_human to give the turn to alpha
+'''
 def matchHumanVsAlpha_alpha(b, limit, AlphaLastMove, counterAlpha=0):
     print("----------")
     print(b)
@@ -47,5 +65,10 @@ def matchHumanVsAlpha_alpha(b, limit, AlphaLastMove, counterAlpha=0):
     b.pop()
 
 
+'''
+role: starts the match by calling matchHumanVsAlpha_human
+input: b: the chess board ; limit: the limit of the depth;
+output: void , calls matchHumanVsAlpha_human to give the turn to alpha
+'''
 def matchHumanVsAlpha(b, limit):
     matchHumanVsAlpha_human(b, limit, None)

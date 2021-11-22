@@ -1,7 +1,7 @@
-'''
+"""
 party 3 - E1
-implementing alpha beta method 
-'''
+implementing alpha beta method
+"""
 
 from heuristique import *
 from starterChess import randomMove
@@ -23,8 +23,9 @@ def gagnantAmiAlphaBeta_user(b, limit):
         beta = -1 * (calculate_score(white) + scoreWhitePawns(whitePawns))
     return gagnantAmiAlphaBeta(b, limit, alpha, beta)
 
+
 '''
-role: implements alpha beta algorithme (ami turn)
+role: implements alpha beta algorithm (ami turn)
 input: b: the chess board ; limit: the limit of the depth; 
         alpha : the best possible score; beta: the worst possible score
         niv: the current depth reached by default 1 (for the first call)
@@ -57,8 +58,9 @@ def gagnantAmiAlphaBeta(b, limit, alpha, beta, niv=1):
                 return beta
         return alpha
 
+
 '''
-role: implements alpha beta algorithme (enemi turn)
+role: implements alpha beta algorithm (enemi turn)
 input: b: the chess board ; limit: the limit of the depth; 
         alpha : the best possible score; beta: the worst possible score
         niv: the current depth reached by default 1 (for the first call)

@@ -1,21 +1,26 @@
-'''
+"""
 party 2 - E 3
 creating the function MaxMin and Minmax with a specific depth
-'''
-import chess
+"""
 from starterChess import randomMove
 from heuristique import heuristique
 
 
+'''
+role: implements maxmin algorithm 
+input: b: the chess board ; limit: the limit of the depth
+        niv: the current depth reached by default 1 (for the first call)
+output: returns the move 
+'''
 def gagnantAmi(b, limit, niv=1):
     bestMove = None
-    if (b.is_game_over()):
+    if b.is_game_over():
         return heuristique(b)
-    if (limit == 1):
+    if limit == 1:
         return randomMove(b)
-    if (niv == limit):
+    if niv == limit:
         return heuristique(b)
-    elif (niv == 1):
+    elif niv == 1:
         maxx = -2390
         for move in b.generate_legal_moves():
             b.push(move)
@@ -36,10 +41,16 @@ def gagnantAmi(b, limit, niv=1):
         return maxx
 
 
+'''
+role: implements minmax algorithm 
+input: b: the chess board ; limit: the limit of the depth
+        niv: the current depth reached by default 1 (for the first call)
+output: the lowest score for ami
+'''
 def gagnantEnnemi(b, limit, niv=1):
-    if (b.is_game_over()):
+    if b.is_game_over():
         return heuristique(b)
-    if (niv == limit):
+    if niv == limit:
         return heuristique(b)
     else:
         minn = 2390
@@ -51,7 +62,3 @@ def gagnantEnnemi(b, limit, niv=1):
                 minn = maxx
         return minn
 
-
-# ---------testing-------
-board = chess.Board()
-print(gagnantAmi(board, 3))
