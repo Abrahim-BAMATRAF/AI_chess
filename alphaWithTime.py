@@ -1,9 +1,14 @@
 import time
-
 from heuristique import *
 from starterChess import randomMove
 
-
+'''
+role: calculate alpha and beta then calls gagnantAmiAlphaBeta
+input: b: the chess board ; limit: the limit of the depth;
+        timeLimit: the limit of time the algo should not exceed
+output: returns the move calculated by gagnantAmiAlphaBetaWithTime
+precond: the global variable start must be initialized (start = time.time())
+'''
 def gagnantAmiAlphaBetaWithTime_user(b, limit, timeLimit=10):
     white, black = get_piece(b)
     whitePawns = getWhitePawns(b)
@@ -20,6 +25,15 @@ def gagnantAmiAlphaBetaWithTime_user(b, limit, timeLimit=10):
 start = time.time()
 
 
+'''
+role: implements alpha beta algorithme (ami turn)
+input: b: the chess board ; limit: the limit of the depth; 
+        alpha : the best possible score; beta: the worst possible score
+        timeLimit: the limit of time the algo should not exceed
+        niv: the current depth reached by default 1 (for the first call)
+output: the best possible move
+precond: the global variable start must be initialized (start = time.time())
+'''
 def gagnantAmiAlphaBetaWithTime(b, limit, alpha, beta, timeLimit, niv=1):
     bestMove = None
     global start
@@ -54,7 +68,15 @@ def gagnantAmiAlphaBetaWithTime(b, limit, alpha, beta, timeLimit, niv=1):
                 return beta
         return alpha
 
-
+'''
+role: implements alpha beta algorithme (enemi turn)
+input: b: the chess board ; limit: the limit of the depth; 
+        alpha : the best possible score; beta: the worst possible score
+        timeLimit: the limit of time the algo should not exceed
+        niv: the current depth reached by default 1 (for the first call)
+output: the lowest score for ami (the caller of gagnantAmiAlphaBeta_user)
+precond: the global variable start must be initialized (start = time.time())
+'''
 def gagnantEnnemiAlphaBetaWithTime(b, limit, alpha, beta, timeLimit, niv=1):
     if b.is_game_over():
         return heuristique(b)
@@ -69,8 +91,3 @@ def gagnantEnnemiAlphaBetaWithTime(b, limit, alpha, beta, timeLimit, niv=1):
                 return alpha
         return beta
 
-
-# ------testing-----
-'''
-
-'''

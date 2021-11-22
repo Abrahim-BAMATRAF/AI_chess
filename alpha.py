@@ -6,8 +6,11 @@ implementing alpha beta method
 from heuristique import *
 from starterChess import randomMove
 
-
-# role: calculate alpha and beta then calls gagnantAmiAlphaBeta
+'''
+role: calculate alpha and beta then calls gagnantAmiAlphaBeta
+input: b: the chess board ; limit: the limit of the depth
+output: returns the move calculated by gagnantAmiAlphaBeta
+'''
 def gagnantAmiAlphaBeta_user(b, limit):
     white, black = get_piece(b)
     whitePawns = getWhitePawns(b)
@@ -20,7 +23,13 @@ def gagnantAmiAlphaBeta_user(b, limit):
         beta = -1 * (calculate_score(white) + scoreWhitePawns(whitePawns))
     return gagnantAmiAlphaBeta(b, limit, alpha, beta)
 
-
+'''
+role: implements alpha beta algorithme (ami turn)
+input: b: the chess board ; limit: the limit of the depth; 
+        alpha : the best possible score; beta: the worst possible score
+        niv: the current depth reached by default 1 (for the first call)
+output: the best possible move
+'''
 def gagnantAmiAlphaBeta(b, limit, alpha, beta, niv=1):
     bestMove = None
     if b.is_game_over():
@@ -48,7 +57,13 @@ def gagnantAmiAlphaBeta(b, limit, alpha, beta, niv=1):
                 return beta
         return alpha
 
-
+'''
+role: implements alpha beta algorithme (enemi turn)
+input: b: the chess board ; limit: the limit of the depth; 
+        alpha : the best possible score; beta: the worst possible score
+        niv: the current depth reached by default 1 (for the first call)
+output: the lowest score for ami (the caller of gagnantAmiAlphaBeta_user)
+'''
 def gagnantEnnemiAlphaBeta(b, limit, alpha, beta, niv=1):
     if b.is_game_over():
         return heuristique(b)
